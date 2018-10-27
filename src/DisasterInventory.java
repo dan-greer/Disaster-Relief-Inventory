@@ -8,7 +8,7 @@ public class DisasterInventory {
 		
 		
 		// Loop through prompt
-		char choice = getInput();
+		char choice = getChoice();
 		System.out.println();
 		
 		while (choice != '4') {
@@ -28,7 +28,7 @@ public class DisasterInventory {
 			default:
 				System.err.println("ERROR: Choice was invalid");
 			}
-			choice = getInput();
+			choice = getChoice();
 			System.out.println();
 		}
 		
@@ -41,7 +41,7 @@ public class DisasterInventory {
 
 	}
 	
-	public static char getInput() {
+	public static char getChoice() {
 		Scanner in = new Scanner(System.in);
 		String fullInput = validateFullInput(in);
 		

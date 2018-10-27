@@ -13,10 +13,8 @@ public class FileHandler {
 			BufferedReader inputFile = new BufferedReader(new FileReader("data/inventory.txt"));
 			String line = inputFile.readLine();
 			while (line != null) {
-				int posOfSpace = line.indexOf(' ');
-				
-				String item = line.substring(0, posOfSpace);
-				String value = line.substring(posOfSpace + 1);
+				String item = line;
+				String value = inputFile.readLine();
 				int trueValue = Integer.parseInt(value);
 				
 				inventory.put(item, trueValue);
@@ -36,7 +34,45 @@ public class FileHandler {
 
 	public static void writeHTML(Map<String, Integer> inventory) {
 		// Write to an HTML table
-		
+		try {
+			BufferedWriter outputHTML = new BufferedWriter(new FileWriter("data/inventory.html"));
+			outputHTML.write("<!DOCTYPE html>");
+			outputHTML.newLine();
+			
+			outputHTML.write("<html lang=\"en\">");
+			outputHTML.newLine();
+			
+			// Head
+			outputHTML.write("\t<head>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t<title>Disaster Inventory</title>");
+			outputHTML.newLine();
+			outputHTML.write("\t</head>");
+			outputHTML.newLine();
+			
+			// Body
+			outputHTML.write("\t<body>");
+			outputHTML.newLine();
+			for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+				outputHTML.write("\t\t<p>" + entry.getKey() + " - " + entry.getValue() + "</p>");
+				outputHTML.newLine();
+			}
+			outputHTML.write("\t</body>");
+			outputHTML.newLine();
+			
+			
+			
+			
+			outputHTML.write("</html>");
+			outputHTML.newLine();
+			
+			outputHTML.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void writeInventoryFile(Map<String, Integer> inventory) {
@@ -45,7 +81,9 @@ public class FileHandler {
 			BufferedWriter outputFile = new BufferedWriter(new FileWriter("data/inventory.txt"));
 			
 			for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
-				outputFile.write(entry.getKey() + " " + entry.getValue());
+				outputFile.write(entry.getKey());
+				outputFile.newLine();
+				outputFile.write(entry.getValue());
 				outputFile.newLine();
 			}
 			
