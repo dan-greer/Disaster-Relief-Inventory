@@ -7,10 +7,10 @@ public class FileHandler {
 		// Never gets called
 	}
 
-	public static Map<String, Integer> readFile(String fileName) {
+	public static Map<String, Integer> readFile(String locationName) {
 		Map<String, Integer> inventory = new TreeMap<>();
 		try {
-			BufferedReader inputFile = new BufferedReader(new FileReader(fileName));
+			BufferedReader inputFile = new BufferedReader(new FileReader("data/" + locationName + ".txt"));
 			String line = inputFile.readLine();
 			while (line != null) {
 				String item = line;
@@ -37,10 +37,11 @@ public class FileHandler {
 		
 	}
 
-	public static void writeHTML(Map<String, Integer> inventory) {
+	public static void writeHTML(List<Location> reliefLocations) {
 		// Write to an HTML table
+
 		try {
-			BufferedWriter outputHTML = new BufferedWriter(new FileWriter("data/inventory.html"));
+			BufferedWriter outputHTML = new BufferedWriter(new FileWriter("data/indexInventory.html"));
 			outputHTML.write("<!DOCTYPE html>");
 			outputHTML.newLine();
 			
@@ -51,7 +52,7 @@ public class FileHandler {
 			// Head
 			outputHTML.write("\t<head>");
 			outputHTML.newLine();
-			outputHTML.write("\t\t<title>Disaster Inventory</title>");
+			outputHTML.write("\t\t<title> Disaster Relief Inventory</title>");
 			outputHTML.newLine();
 			outputHTML.write("\t</head>");
 			outputHTML.newLine();
@@ -59,7 +60,47 @@ public class FileHandler {
 			// Body
 			outputHTML.write("\t<body>");
 			outputHTML.newLine();
+			outputHTML.write("\t<h1>Locations<h1>");
+			for (Location loc: reliefLocations) {
+				outputHTML.write("\t\t<a href=\"data/" + loc.locationName + ".html>" + loc.locationName + "</a>");
+			}
 			
+			outputHTML.write("\t</body>");
+			outputHTML.newLine();
+			
+			
+			outputHTML.write("</html>");
+			outputHTML.newLine();
+			
+			
+			outputHTML.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+	}
+	
+	public static void writeLocationHTML(Location loc) {
+		try {
+			BufferedWriter outputHTML = new BufferedWriter(new FileWriter("data/" + loc.locationName + ".html"));
+			outputHTML.write("<!DOCTYPE html>");
+			outputHTML.newLine();
+			
+			outputHTML.write("<html lang=\"en\">");
+			outputHTML.newLine();
+			outputHTML.write("<link rel=\"stylesheet\" href=\"inventoryStyle.css\" type=\"text/css\"");
+			
+			// Head
+			outputHTML.write("\t<head>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t<title>" + loc.locationName + " Inventory</title>");
+			outputHTML.newLine();
+			outputHTML.write("\t</head>");
+			outputHTML.newLine();
+			
+			// Body
+			outputHTML.write("\t<body>");
+			outputHTML.newLine();
 			outputHTML.write("\t\t<table>");
 			outputHTML.newLine();
 			outputHTML.write("\t\t\t<tr>");
@@ -70,7 +111,7 @@ public class FileHandler {
 			outputHTML.newLine();
 			outputHTML.write("\t\t\t</tr>");
 			outputHTML.newLine();
-			for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+			for (Map.Entry<String, Integer> entry : loc.inventory.entrySet()) {
 				outputHTML.write("\t\t\t<tr>");
 				outputHTML.newLine();
 				outputHTML.write("\t\t\t\t<td>" + entry.getKey() + "</td>");
@@ -100,9 +141,9 @@ public class FileHandler {
 		}
 	}
 
-	public static void writeInventoryFile(Map<String, Integer> inventory) {
+	public static void writeInventoryFile(Map<String, Integer> inventory, String locationName) {
 		try {
-			BufferedWriter outputFile = new BufferedWriter(new FileWriter("data/inventory.txt"));
+			BufferedWriter outputFile = new BufferedWriter(new FileWriter("data/" + locationName + ".txt"));
 			
 			for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
 				outputFile.write(entry.getKey());
