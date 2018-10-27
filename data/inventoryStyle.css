@@ -1,0 +1,8 @@
+table {
+	border: 5px solid black;
+	width: 200px;
+}
+
+th {
+	font-weight: bold;
+}
