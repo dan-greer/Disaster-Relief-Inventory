@@ -83,7 +83,7 @@ public class FileHandler {
 			for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
 				outputFile.write(entry.getKey());
 				outputFile.newLine();
-				outputFile.write(entry.getValue());
+				outputFile.write(entry.getValue().toString());
 				outputFile.newLine();
 			}
 			

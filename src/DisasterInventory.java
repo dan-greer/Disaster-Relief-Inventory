@@ -57,7 +57,6 @@ public class DisasterInventory {
 			toCheck = Character.getNumericValue(choice);
 			
 		}
-
 		return choice;
 	}
 	
@@ -71,17 +70,21 @@ public class DisasterInventory {
 			int currentQuantity = inventory.get(itemType);
 			System.out.println("Current quantity of [" + itemType + "]is " + currentQuantity);
 			System.out.println("How many [" + itemType + "] would you like to add to the current quantity?");
-			int newQuantity = Integer.parseInt(in.nextLine());
+			String quantity = in.nextLine();
+			int newQuantity = Integer.parseInt(quantity);
 			inventory.replace(itemType, currentQuantity, currentQuantity + newQuantity);
-			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
+			System.out.println("Updated inventory to hold " + (currentQuantity + newQuantity) + " of [" + itemType + "]");
 			
 		} else {
 			
 			System.out.println("There are no [" + itemType + "] in the current inventory. How many would you like to add?");
-			int newQuantity = Integer.parseInt(in.nextLine());
+			String quantity = in.nextLine();
+			int newQuantity = Integer.parseInt(quantity);
 			inventory.put(itemType, newQuantity);
 			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
 		}
+		
+		
 	}
 	
 	public static void printOptions() {
@@ -98,7 +101,7 @@ public class DisasterInventory {
 		System.out.println();
 		
 		while (fullInput.length() != 1) {
-			System.out.println("ERROR: Input should be one character.");
+			System.out.println("ERROR: Input should be one numerical character between 1 and 4.");
 			
 			printOptions();
 			fullInput = in.nextLine();
