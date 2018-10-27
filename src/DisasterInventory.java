@@ -15,6 +15,7 @@ public class DisasterInventory {
 			switch (choice) {
 			case '1':
 				// Execute add to inventory
+				addItems(inventory);
 				break;
 			case '2':
 				// Execute update inventory
@@ -58,6 +59,29 @@ public class DisasterInventory {
 		}
 
 		return choice;
+	}
+	
+	public static void addItems(Map<String, Integer> inventory) {
+		Scanner in = new Scanner(System.in);
+		
+		System.out.println("Which type of item(s) would you like to add? ");
+		String itemType = in.nextLine();
+		
+		if (inventory.containsKey(itemType)) {
+			int currentQuantity = inventory.get(itemType);
+			System.out.println("Current quantity of [" + itemType + "]is " + currentQuantity);
+			System.out.println("How many [" + itemType + "] would you like to add to the current quantity?");
+			int newQuantity = Integer.parseInt(in.nextLine());
+			inventory.replace(itemType, currentQuantity, currentQuantity + newQuantity);
+			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
+			
+		} else {
+			
+			System.out.println("There are no [" + itemType + "] in the current inventory. How many would you like to add?");
+			int newQuantity = Integer.parseInt(in.nextLine());
+			inventory.put(itemType, newQuantity);
+			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
+		}
 	}
 	
 	public static void printOptions() {
