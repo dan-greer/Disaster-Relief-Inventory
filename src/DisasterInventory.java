@@ -3,10 +3,14 @@ import java.util.*;
 public class DisasterInventory {
 
 	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
 		// Read from inventory file
-		Map<String, Integer> inventory = FileHandler.readFile();
+		HashSet<Location> reliefLocations = new HashSet<Location>();
 		
-		
+		System.out.println("Which location would you like to access? ");
+		String locationStr = in.nextLine();
+		Location newLocation = new Location(locationStr, "inventory" + locationStr + ".txt");
+		Map<String, Integer> inventory = newLocation.inventory; 
 		// Loop through prompt
 		char choice = getChoice();
 		System.out.println();
@@ -23,7 +27,7 @@ public class DisasterInventory {
 				break;
 			case '3':
 				// Execute view inventory
-				printInventory(inventory);
+				newLocation.printInventory();
 				break;
 			case '4':
 				// Do nothing
@@ -111,13 +115,6 @@ public class DisasterInventory {
 			System.out.println("There are no [" + itemType + "] in the current inventory.");
 			System.out.println("Command failed.");
 		}
-	}
-	
-	public static void printInventory(Map<String, Integer> inventory) {
-		for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
-			System.out.println(entry.getKey() + " - " + entry.getValue());
-		}
-		
 	}
 	
 	public static void printOptions() {

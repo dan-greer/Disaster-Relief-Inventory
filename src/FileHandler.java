@@ -7,10 +7,10 @@ public class FileHandler {
 		// Never gets called
 	}
 
-	public static Map<String, Integer> readFile() {
+	public static Map<String, Integer> readFile(String fileName) {
 		Map<String, Integer> inventory = new TreeMap<>();
 		try {
-			BufferedReader inputFile = new BufferedReader(new FileReader("data/inventory.txt"));
+			BufferedReader inputFile = new BufferedReader(new FileReader(fileName));
 			String line = inputFile.readLine();
 			while (line != null) {
 				String item = line;
