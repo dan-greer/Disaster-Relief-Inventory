@@ -41,6 +41,7 @@ public class FileHandler {
 			
 			outputHTML.write("<html lang=\"en\">");
 			outputHTML.newLine();
+			outputHTML.write("<link href=\"inventoryStyle.css\" type=\"text/css\"");
 			
 			// Head
 			outputHTML.write("\t<head>");
