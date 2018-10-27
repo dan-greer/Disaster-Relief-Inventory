@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 firetruck
 1
 water
 21
+=======
+towel 21
+>>>>>>> refs/remotes/origin/master

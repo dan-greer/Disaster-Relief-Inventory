@@ -19,9 +19,11 @@ public class DisasterInventory {
 				break;
 			case '2':
 				// Execute update inventory
+				updateItems(inventory);
 				break;
 			case '3':
 				// Execute view inventory
+				printInventory(inventory);
 				break;
 			case '4':
 				// Do nothing
@@ -71,9 +73,11 @@ public class DisasterInventory {
 			System.out.println("Current quantity of [" + itemType + "]is " + currentQuantity);
 			System.out.println("How many [" + itemType + "] would you like to add to the current quantity?");
 			String quantity = in.nextLine();
+
 			int newQuantity = Integer.parseInt(quantity);
 			inventory.replace(itemType, currentQuantity, currentQuantity + newQuantity);
 			System.out.println("Updated inventory to hold " + (currentQuantity + newQuantity) + " of [" + itemType + "]");
+
 			
 		} else {
 			
@@ -84,6 +88,35 @@ public class DisasterInventory {
 			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
 		}
 		
+		
+	}
+	
+	public static void updateItems(Map<String, Integer> inventory) {
+		Scanner in = new Scanner(System.in);
+		
+		System.out.println("Which type of item(s) would you like to update? ");
+		String itemType = in.nextLine();
+		
+		if (inventory.containsKey(itemType)) {
+			int currentQuantity = inventory.get(itemType);
+			System.out.println("Current quantity of [" + itemType + "] is " + currentQuantity);
+			System.out.println("What would you like the new quantity of [" + itemType + "] to be?");
+			String quantity = in.nextLine();
+			int newQuantity = Integer.parseInt(quantity);
+			inventory.replace(itemType, currentQuantity, newQuantity);
+			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "].");
+			
+		} else {
+			
+			System.out.println("There are no [" + itemType + "] in the current inventory.");
+			System.out.println("Command failed.");
+		}
+	}
+	
+	public static void printInventory(Map<String, Integer> inventory) {
+		for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
+			System.out.println(entry.getKey() + " - " + entry.getValue());
+		}
 		
 	}
 	
