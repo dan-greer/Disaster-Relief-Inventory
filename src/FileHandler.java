@@ -45,7 +45,7 @@ public class FileHandler {
 			BufferedWriter outputFile = new BufferedWriter(new FileWriter("data/inventory.txt"));
 			
 			for (Map.Entry<String, Integer> entry: inventory.entrySet()) {
-				outputFile.write(entry.getKey() + " " + entry.getValue());
+				outputFile.write(entry.getKey() + " " + entry.getValue().toString());
 				outputFile.newLine();
 			}
 			

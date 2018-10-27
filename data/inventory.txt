@@ -1,1 +1,2 @@
 towel 21
+water 5

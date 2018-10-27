@@ -71,7 +71,7 @@ public class DisasterInventory {
 		
 		if (inventory.containsKey(itemType)) {
 			int currentQuantity = inventory.get(itemType);
-			System.out.println("Current quantity of [" + itemType + "]is " + currentQuantity);
+			System.out.println("Current quantity of [" + itemType + "] is " + currentQuantity);
 			System.out.println("How many [" + itemType + "] would you like to add to the current quantity?");
 			String quantity = in.nextLine();
 			int newQuantity = Integer.parseInt(quantity) + currentQuantity;
