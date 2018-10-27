@@ -8,7 +8,7 @@ public class DisasterInventory {
 		
 		
 		// Loop through prompt
-		char choice = getInput();
+		char choice = getChoice();
 		System.out.println();
 		
 		while (choice != '4') {
@@ -31,7 +31,7 @@ public class DisasterInventory {
 			default:
 				System.err.println("ERROR: Choice was invalid");
 			}
-			choice = getInput();
+			choice = getChoice();
 			System.out.println();
 		}
 		
@@ -44,7 +44,7 @@ public class DisasterInventory {
 
 	}
 	
-	public static char getInput() {
+	public static char getChoice() {
 		Scanner in = new Scanner(System.in);
 		String fullInput = validateFullInput(in);
 		
@@ -59,7 +59,6 @@ public class DisasterInventory {
 			toCheck = Character.getNumericValue(choice);
 			
 		}
-
 		return choice;
 	}
 	
@@ -74,17 +73,22 @@ public class DisasterInventory {
 			System.out.println("Current quantity of [" + itemType + "] is " + currentQuantity);
 			System.out.println("How many [" + itemType + "] would you like to add to the current quantity?");
 			String quantity = in.nextLine();
-			int newQuantity = Integer.parseInt(quantity) + currentQuantity;
-			inventory.replace(itemType, currentQuantity, newQuantity);
-			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
+
+			int newQuantity = Integer.parseInt(quantity);
+			inventory.replace(itemType, currentQuantity, currentQuantity + newQuantity);
+			System.out.println("Updated inventory to hold " + (currentQuantity + newQuantity) + " of [" + itemType + "]");
+
 			
 		} else {
 			
 			System.out.println("There are no [" + itemType + "] in the current inventory. How many would you like to add?");
-			int newQuantity = Integer.parseInt(in.nextLine());
+			String quantity = in.nextLine();
+			int newQuantity = Integer.parseInt(quantity);
 			inventory.put(itemType, newQuantity);
 			System.out.println("Updated inventory to hold " + newQuantity + " of [" + itemType + "]");
 		}
+		
+		
 	}
 	
 	public static void updateItems(Map<String, Integer> inventory) {
@@ -130,7 +134,7 @@ public class DisasterInventory {
 		System.out.println();
 		
 		while (fullInput.length() != 1) {
-			System.out.println("ERROR: Input should be one character.");
+			System.out.println("ERROR: Input should be one numerical character between 1 and 4.");
 			
 			printOptions();
 			fullInput = in.nextLine();
