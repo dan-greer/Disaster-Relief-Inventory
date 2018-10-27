@@ -53,10 +53,30 @@ public class FileHandler {
 			// Body
 			outputHTML.write("\t<body>");
 			outputHTML.newLine();
+			
+			outputHTML.write("\t\t<table>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t\t<tr>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t\t\t<th>Item</th>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t\t\t<th>Quantity</th>");
+			outputHTML.newLine();
+			outputHTML.write("\t\t\t</tr>");
+			outputHTML.newLine();
 			for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
-				outputHTML.write("\t\t<p>" + entry.getKey() + " - " + entry.getValue() + "</p>");
+				outputHTML.write("\t\t\t<tr>");
+				outputHTML.newLine();
+				outputHTML.write("\t\t\t\t<td>" + entry.getKey() + "</td>");
+				outputHTML.newLine();
+				outputHTML.write("\t\t\t\t<td>" + entry.getValue() + "</td>");
+				outputHTML.newLine();
+				outputHTML.write("\t\t\t</tr>");
 				outputHTML.newLine();
 			}
+			outputHTML.write("\t\t</table>");
+			outputHTML.newLine();
+			
 			outputHTML.write("\t</body>");
 			outputHTML.newLine();
 			
@@ -70,13 +90,11 @@ public class FileHandler {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public static void writeInventoryFile(Map<String, Integer> inventory) {
-		// TODO Auto-generated method stub
 		try {
 			BufferedWriter outputFile = new BufferedWriter(new FileWriter("data/inventory.txt"));
 			
