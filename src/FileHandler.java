@@ -23,7 +23,12 @@ public class FileHandler {
 			}
 			inputFile.close();
 		} catch (FileNotFoundException e) {
-			System.err.println("ERROR: File not found.");
+			File newFile = new File(fileName);
+			try {
+				newFile.createNewFile();
+			} catch (IOException e1) {
+				System.err.println("ERROR: File could not be created.");
+			}
 		} catch (IOException e) {
 			System.err.println("ERROR: File input could not be read.");
 		}

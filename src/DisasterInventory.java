@@ -1,16 +1,56 @@
 import java.util.*;
+import java.io.*;
 
 public class DisasterInventory {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		// Read from inventory file
-		HashSet<Location> reliefLocations = new HashSet<Location>();
 		
-		System.out.println("Which location would you like to access? ");
-		String locationStr = in.nextLine();
-		Location newLocation = new Location(locationStr, "inventory" + locationStr + ".txt");
-		Map<String, Integer> inventory = newLocation.inventory; 
+		List<Location> reliefLocations = new ArrayList<>();
+		// Add to reliefLocations from locations file
+		BufferedReader readLocations = new BufferedReader(new FileReader("data/locations.txt"));
+		String line = readLocations.readLine();
+		
+		while (line != null) {
+			reliefLocations.add(new Location(line));
+			line = readLocations.readLine();
+		}
+		
+		readLocations.close();
+		
+		
+		// Print locations or prompt to enter a new location
+		int count = 1;
+		Location chosen = new Location("empty");
+		
+		if (reliefLocations.size() == 0) {
+			System.out.println("Enter a new location name: ");
+			String locationName = in.nextLine();
+			chosen = new Location(locationName);
+			reliefLocations.add(chosen);
+		} else {
+			for (Location loc: reliefLocations) {
+				System.out.println(count + ") " + loc.getName());
+				count++;
+			}
+			System.out.println(count + ") Create new location");
+			String selection = in.nextLine();
+			
+			int selInt = Integer.parseInt(selection);
+			if (selInt != count) {
+				chosen = reliefLocations.get(selInt - 1);
+			} else {
+				System.out.println("Enter a new location name: ");
+				String locationName = in.nextLine();
+				chosen = new Location(locationName);
+				reliefLocations.add(chosen);
+			}
+		}
+		
+		
+		
+		
+		
 		// Loop through prompt
 		char choice = getChoice();
 		System.out.println();
@@ -19,15 +59,15 @@ public class DisasterInventory {
 			switch (choice) {
 			case '1':
 				// Execute add to inventory
-				addItems(inventory);
+				addItems(chosen.inventory);
 				break;
 			case '2':
 				// Execute update inventory
-				updateItems(inventory);
+				updateItems(chosen.inventory);
 				break;
 			case '3':
 				// Execute view inventory
-				newLocation.printInventory();
+				chosen.printInventory();
 				break;
 			case '4':
 				// Do nothing
@@ -41,8 +81,17 @@ public class DisasterInventory {
 		
 		
 		// Finish and write to HTML and inventory file
-		FileHandler.writeHTML(inventory);
-		FileHandler.writeInventoryFile(inventory);
+		FileHandler.writeHTML(reliefLocations);
+		FileHandler.writeLocationHTML(chosen.inventory);
+		FileHandler.writeInventoryFile(chosen.inventory, chosen.getName());
+		
+		BufferedWriter locationsWriter = new BufferedWriter(new FileWriter("data/locations.txt"));
+		for (Location loc : reliefLocations) {
+			locationsWriter.write(loc.getName());
+			locationsWriter.newLine();
+		}
+		
+		locationsWriter.close();
 		
 		System.out.println("Exited successfully");
 

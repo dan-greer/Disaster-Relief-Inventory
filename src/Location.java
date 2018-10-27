@@ -4,9 +4,9 @@ public class Location {
 	String locationName;
 	Map<String, Integer> inventory;
 
-	public Location(String locationName, String fileName) {
+	public Location(String locationName) {
 		this.locationName = locationName;
-		this.inventory = FileHandler.readFile(fileName);
+		this.inventory = FileHandler.readFile("data/" + locationName + ".txt");
 	}
 	
 	public String getName() {
