@@ -57,7 +57,7 @@ public class FileHandler {
 			outputHTML.newLine();
 			outputHTML.write("\t<h1>Locations<h1>");
 			for (Location loc: reliefLocations) {
-				outputHTML.write("\t\t<a href=\"data/" + loc.locationName + ".html>" + loc.locationName + "</a>");
+				outputHTML.write("\t\t<a href=\"" + loc.locationName + ".html\">" + loc.locationName + "</a>");
 			}
 			
 			outputHTML.write("\t</body>");
